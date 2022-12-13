@@ -11,10 +11,11 @@ import java.time.Duration;
 import java.util.Date;
 
 import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardWithDeliveryTest {
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
     Date date = new Date();
 
     @BeforeEach
@@ -38,7 +39,7 @@ public class CardWithDeliveryTest {
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
 
-        $("[data-test-id=notification]").shouldBe(Condition.visible, Duration.ofMillis(15000));
+        $("[data-test-id=notification]").shouldHave(text("Встреча успешно забронирована на " + value), Duration.ofMillis(15000));
     }
 
     @Test
@@ -54,7 +55,7 @@ public class CardWithDeliveryTest {
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
 
-        $("[data-test-id=notification]").shouldBe(Condition.visible, Duration.ofMillis(15000));
+        $("[data-test-id=notification]").shouldHave(text("Встреча успешно забронирована на " + value), Duration.ofMillis(15000));
     }
 
     @Test
@@ -70,7 +71,7 @@ public class CardWithDeliveryTest {
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
 
-        $("[data-test-id=notification]").shouldBe(Condition.visible, Duration.ofMillis(15000));
+        $("[data-test-id=notification]").shouldHave(text("Встреча успешно забронирована на " + value), Duration.ofMillis(15000));
     }
 
     @Test
@@ -86,7 +87,7 @@ public class CardWithDeliveryTest {
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
 
-        $("[data-test-id=notification]").shouldBe(Condition.visible, Duration.ofMillis(15000));
+        $("[data-test-id=notification]").shouldHave(text("Встреча успешно забронирована на " + value), Duration.ofMillis(15000));
     }
 
     @Test
@@ -297,7 +298,7 @@ public class CardWithDeliveryTest {
     void scheduleDeliveryDropDownListOfCities() {
         Date newDate = DateUtils.addDays(date, 10);
         String value =  formatter.format(newDate);
-        $("[data-test-id=city] input").setValue("Петропа");
+        $("[data-test-id=city] input").setValue("Пе");
         $x("//span[contains(text(),'Камчатский')]").click();
         $("[data-test-id=date] input").sendKeys(Keys.CONTROL + "A");
         $("[data-test-id=date] input").sendKeys(Keys.BACK_SPACE);
@@ -307,6 +308,6 @@ public class CardWithDeliveryTest {
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
 
-        $("[data-test-id=notification]").shouldBe(Condition.visible, Duration.ofMillis(15000));
+        $("[data-test-id=notification]").shouldHave(text("Встреча успешно забронирована на " + value), Duration.ofMillis(15000));
     }
 }
